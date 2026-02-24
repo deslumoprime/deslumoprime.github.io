@@ -2,11 +2,21 @@
 <html>
 <head>
     <title>mondzhang</title>
-
+    <script>
+        function openPopup() {
+            document.getElementById("popup").style.display = "flex";
+        }
+        function closePopup() {
+            document.getElementById("popup").style.display = "none";
+        }
+        document.getElementById("popup").addEventListener("click", function(e) {
+            if (e.target === this) closePopup();
+        });     
+</script>
     <style>
         body {
             font-family: Helvetica;
-            background-color: #111;
+            background-color: #f6efd4;
             color: white;
             display: flex;
             justify-content: center;
@@ -15,32 +25,257 @@
             flex-direction: column;
         }
 
+        /*regular text formatting*/
         h1 {
-            font-size: 48px;
-            margin-bottom: 20px;
+            position: absolute;            
+            margin-top: 0px;
+            margin-bottom: 0px;
+            color: rgb(49, 49, 49);
         }
-
+        /*url formatting*/
         a {
-            color: lightblue;
-            font-size: 20px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: rgb(96, 202, 238);
+            font-size: 14px;
+            font-weight: normal;
             text-decoration: none;
-            border: #111;
+        }
+        /*profile container that holds everything in the main profile page*/
+        /*perhaps more stuff like photos will be added in the main page below this container but this will be the sole container on the main page for now*/
+        .profileContainer {
+            width: 675px;
+            height: 500px;
+            position: absolute;
+            bottom: 300px;
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
+
+            /*set to highlight color for debugging, set to none when deployement*/
+            /*border: 2px solid red;*/
+            border-radius: 12px;
+            cursor: auto;
+        }
+        /*profile picture settings*/
+        .mainProfilePicture {
+            width: 150px;
+            border-radius: 100%;
+            position: absolute;
+            top: 25px;
+            left: 25px;
+        }
+        .profileUsername {
+            font-size: 24px;
+            font-weight: bolder;
+            top: 35px;
+            left: 195px;
+        }
+        /*profile real name */
+        .profileRealName {
+            font-size: 14px;
+            font-weight: normal;
+            top: 70px;
+            left: 195px;
+        }
+        /*pronouns */
+        .profilePronouns {
+            font-size: 14px;
+            font-weight: normal;
+            color: #8d8d8d;
+            top: 70px;
+            left: 300px;
+        }
+        /*post count */
+        .profilePostCount {
+            font-size: 14px;
+            font-weight: normal;
+            top: 105px;
+            left: 195px;
+        }
+        /*brief description displayed on the profile card*/
+        .profileAboutMe {
+            font-size: 14px;
+            font-weight: normal;
+            top: 140px;
+            left: 195px;
+        }
+        /*button that will say "follow" */
+        .profileFollow {
+            display: inline-block;
             padding: 10px 16px;
-            border-radius: 8px;
+            border-radius: 10px;
+            background-color: rgb(74, 93, 249);
+            color: white;
+            font-family: Helvetica;
+            text-align: center;
+            cursor: pointer;
+            width: 275px;
+            user-select: none;
+            text-decoration: none;
+            font-weight: bolder;
+            font-size: 12px;
+            position: absolute;
+            top: 195px;
+            left: 25px;
+        }
+        /* button that will say "message" */ 
+        .profileMessage {
+            display: inline-block;
+            padding: 10px 16px;
+            border-radius: 10px;
+            background-color: rgb(74, 93, 249);
+            color: white;
+            font-family: Helvetica;
+            text-align: center;
+            cursor: pointer;
+            width: 275px;
+            user-select: none;
+            text-decoration: none;
+            font-weight: bolder;
+            font-size: 12px;
+            position: absolute;
+            top: 195px;
+            right: 25px;
+        
+        }
+        /* background and highlights the rest of the flashcard*/
+        .messageButtonPopUp {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(132, 132, 132, 0.6);
+            justify-content: center;
+            align-items: center;
+        }
+        /* actual popup thing*/
+        .messageButtonPopUpBox {
+            background: #f6efd4;
+            color: white;
+            padding: 24px;
+            border-radius: 12px;
+            /*border: 2px solid red;*/
+            width: 500px;
+            height: 75px;
+            text-align: center;
+        }
+        /* button to close popup */
+        .popUpCloseButton {
+            margin-top: 15px;
+            padding: 6px 6px;
+            background: black;
+            color: white;
+            border-radius: 6px;
+            height: 12px;
+            width: 14px;
+            font-size: 12px;
+            text-align: center;
+            position: absolute;
+            top: 160px;
+            right: 55px;
+            cursor: pointer;
+            display: inline-block;
+        }
+        .digitalArtifactButton {
+            display: inline-block;
+            padding: 10px 16px;
+            border-radius: 10px;
+            background-color: rgb(74, 93, 249);
+            color: white;
+            font-family: Helvetica;
+            text-align: center;
+            cursor: pointer;
+            width: 275px;
+            user-select: none;
+            text-decoration: none;
+            font-weight: bolder;
+            font-size: 12px;
+            position: absolute;
+            top: 245px;
+            left: 25px;
+        }
+        .buttonText {
+            font-size: 12px;
+            font-weight: bolder;
+            position: static;
+            color: white;
+        }
+        .aboutMeText {
+            font-size: 12px;
+            font-weight: normal;
+            position: static;
+            color: black;
         }
 
-        a:hover {
-            background-color:lightblue;
-            color: #111;
+        .myGithubButton {
+            display: inline-block;
+            padding: 10px 16px;
+            border-radius: 10px;
+            background-color: rgb(74, 93, 249);
+            color: white;
+            font-family: Helvetica;
+            text-align: center;
+            cursor: pointer;
+            width: 275px;
+            user-select: none;
+            text-decoration: none;
+            font-weight: bolder;
+            font-size: 12px;
+            position: absolute;
+            top: 245px;
+            right: 25px;
         }
     </style>
-
 </head>
-
 <body>
-<h1>mondzhang</h1>
-<a href="flashcard.html"> 
-    View Song Flashcard
-</a>
+<div class="profileContainer">
+    <h1 class="profileUsername">
+        mondzhang
+    </h1>
+    <h1 class="profileRealName">
+        raymond zhang
+    </h1>
+    <h1 class="profilePronouns">
+        he/him
+    </h1>
+    <h1 class="profilePostCount">
+        9 posts
+    </h1>
+    <h1 class="profileAboutMe">
+        uiuc &#39;28 is+ds \\ middle-distance runner \\ data-science and llm research
+    </h1>
+    <img class="mainProfilePicture" src="mainprofilepic.jpeg" alt="Main profile picture from mondzhang IG">
+    <div class="profileFollow" onclick="location.href='https://instagram.com/mondzhang/'">
+        <h1 class="buttonText">follow me on instagram !</h1>
+    </div>
+    <div class="profileMessage" onclick="openPopup()">
+        <h1 class="buttonText">
+            more about me !
+        </h1>
+    </div>
+    <div class="digitalArtifactButton" onclick="location.href='flashcard.html'">
+        my digital artifact !
+    </div>
+
+    <div class="myGithubButton" onclick="location.href='https://github.com/deslumoprime/'">
+        my github !
+    </div>
+    <div class="messageButtonPopUp" id="popup">
+        <div class="messageButtonPopUpBox">
+            <h1 class="aboutMeText">
+                i'm raymond. 
+                i'm interested in exercise physiology analytics as well, business analytics, and large-language model research. 
+                i'm currently taking courses on linear algebra and introductory computer science and i'm planning on transferring to cs+econ at uiuc.
+                my primary sport is track and field, and i spend a large portion of my free time, outside of school, training and recovering. 
+                a fun fact about me is that i learned the dvorak keyboard layout during covid. 
+            </h1>
+            <h1 class="popUpCloseButton" onclick="closePopup()">
+                X
+            </h1>
+        </div>
+    </div>
+</div>
 </body>
 </html>
